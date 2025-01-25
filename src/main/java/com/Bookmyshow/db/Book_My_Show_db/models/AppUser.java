@@ -1,12 +1,12 @@
 package com.Bookmyshow.db.Book_My_Show_db.models;
 
 import jakarta.persistence.*;
-import lombok.*;
+
 
 import java.util.UUID;
 
-
 @Entity
+@Table(name = "app_user")
 public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,9 +17,22 @@ public class AppUser {
     @Column(nullable=false)
     String password;
     @Column(name = "contact_number", unique = true)
-    Long ContactNumber;
+    private Long ContactNumber;
+
     @Column(name = "user_type")
-    String UserType;
+    private String UserType;
+
+    public AppUser() {
+    }
+
+    public AppUser(UUID id, String name, String email, String password, Long contactNumber, String userType) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        ContactNumber = contactNumber;
+        UserType = userType;
+    }
 
     public UUID getId() {
         return id;
@@ -68,38 +81,4 @@ public class AppUser {
     public void setUserType(String userType) {
         UserType = userType;
     }
-
-    public AppUser(UUID id, String name, String email, String password, Long contactNumber, String userType) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        ContactNumber = contactNumber;
-        UserType = userType;
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
-
-    public AppUser() {
-        super();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
-
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
-    }
-
-    @Override
-    public String toString() {
-        return super.toString();
-    }
-
 }
