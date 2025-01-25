@@ -1,5 +1,6 @@
 package com.Bookmyshow.experience.util;
 
+import com.Bookmyshow.experience.dbresponse.Threater;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.RequestEntity;
@@ -19,6 +20,18 @@ public class MailApiUtil {
         String url = mailApiURL + "/users/register" + "?email" + userEmail +"&userName" +userName;
         URI finalUrl = URI.create(url);
         RequestEntity req = RequestEntity.put(finalUrl).build();
+        RestTemplate restTemplate = new RestTemplate();
+        try{
+            ResponseEntity<String> response = restTemplate.exchange(finalUrl, HttpMethod.PUT, req, String.class);
+        }catch(Exception e){
+            throw e;
+        }
+    }
+
+    public void sendThreaterRegistrationMail(Threater threater) {
+        String url = mailApiURL + "/threater/create";
+        URI finalUrl = URI.create(url);
+        RequestEntity req = RequestEntity.put(finalUrl).body(threater);
         RestTemplate restTemplate = new RestTemplate();
         try{
             ResponseEntity<String> response = restTemplate.exchange(finalUrl, HttpMethod.PUT, req, String.class);
